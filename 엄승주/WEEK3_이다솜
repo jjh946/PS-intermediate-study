@@ -1,0 +1,25 @@
+#main
+N, M = map(int,input().split())
+
+pokedex = list()    # for input number
+pokedex.append(" ")
+pokedex2 = dict()   #for input name
+
+for i in range(1,N+1):      # store data
+    temp = input()
+    pokedex.append(temp)
+    pokedex2[temp]=i
+    
+    
+a = list()  # make list for print
+    
+for i in range(M):
+    value = input()
+    
+    if value.isdigit(): #check the value is int or name
+        a.append(pokedex[int(value)])
+    else:
+        a.append(pokedex2[value])
+        
+for i in a:
+    print(i)
