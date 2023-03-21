@@ -1,44 +1,22 @@
-from collections import deque
+n, m = map(int, input().split())
 
-def worms(grid):
-    number_of_worms = 0
-    m = len(grid)    # 세로길이
-    n = len(grid[0]) #가로길이
-    visited = [[False]*n for _ in range(m)]
+# 포켓몬 번호와 이름을 저장할 딕셔너리 생성
+name_to_num = {}
+num_to_name = {}
 
-    def bfs(x,y):
-        dx = [-1, 1, 0, 0]
-        dy = [0, 0, -1, 1]
-        visited[x][y] = True
-        queue = deque()
-        queue.append((x,y))
-        while queue:
-            cur_x, cur_y = queue.popleft()
-            for i in range(4):
-                next_x = cur_x + dx[i]
-                next_y = cur_y + dy[i]
-                if next_x >= 0 and next_x <= m-1 and next_y >= 0 and next_y <= n-1:
-                    if grid[next_x][next_y] == 1 and not visited[next_x][next_y]:
-                        visited[next_x][next_y] = True
-                        queue.append((next_x,next_y))
+for i in range(1, n+1):
+    name = input().strip()
+    name_to_num[name] = i
+    num_to_name[i] = name
 
-    for i in range(m):
-        for j in range(n):
-            if grid[i][j] == 1 and visited[i][j] == False:
-                bfs(i,j)
-                number_of_worms += 1
-
-    return number_of_worms
-
-#입력한 값으로 배추밭 그리드를 만들어준다.
-iteration = int(input())
-
-for i in range(iteration):
-    width, hight,  cabbage_num = map(int, input().split())
-    grid = [[0 for _ in range(hight)] for _ in range(width)]
-    
-    for j in range(cabbage_num):
-        x, y = map(int, input().split())
-        grid[x][y] = 1
-    
-    print(worms(grid))
+# 문제를 하나씩 처리하며 출력
+for _ in range(m):
+    q = input().strip()
+    if q.isdigit():
+        # 숫자가 입력된 경우, 해당 번호의 포켓몬 이름 출력
+        num = int(q)
+        print(num_to_name[num])
+    else:
+        # 문자열이 입력된 경우, 해당 이름의 포켓몬 번호 출력
+        name = q
+        print(name_to_num[name])
