@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <map>
+using namespace std;
+
+int main() {
+    int N,M;
+    cin>>N>>M;
+
+    map <string,int> pocketmon;
+    string question;
+    string answer[M+1];
+    string names[N+1];
+    string p_name;
+    for (int i=1;i<=N;i++) {
+        cin>>p_name;
+        names[i]=p_name;
+        pocketmon[p_name]=i;
+    }
+
+    for (int i=1;i<=M;i++) {
+        cin>>question;
+        //숫자가 들어오면
+        if (isdigit(question[0])) {
+            answer[i]=names[stoi(question)];
+        }
+        //string이 들어오면
+        else {
+            auto it=pocketmon.find(question);
+            answer[i]=to_string(it->second);
+        }
+    }
+
+    for (int i=1;i<=M;i++) {
+        cout<<answer[i]<<'\n';
+    }
+
+    return 0;
+}
